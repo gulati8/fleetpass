@@ -4,6 +4,12 @@ FROM golang:latest
 # Working directory
 WORKDIR /app
 
+# Copy go.mod first (for better caching)
+COPY go.mod ./
+
+# Download dependencies
+RUN go mod download
+
 # Copy everything at /app
 COPY . /app
 
