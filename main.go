@@ -81,6 +81,7 @@ func main() {
 		// Vehicles
 		r.Get("/api/vehicles", handlers.GetVehicles)
 		r.Post("/api/vehicles", handlers.CreateVehicle)
+		r.Post("/api/vehicles/bulk-upload", handlers.BulkUploadVehicles)
 		r.Get("/api/vehicles/{id}", handlers.GetVehicle)
 		r.Put("/api/vehicles/{id}", handlers.UpdateVehicle)
 		r.Delete("/api/vehicles/{id}", handlers.DeleteVehicle)

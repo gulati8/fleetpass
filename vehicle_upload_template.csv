@@ -1,0 +1,4 @@
+vin,make,model,year,trim,color_exterior,color_interior,condition,mileage,license_plate,body_style,transmission,drivetrain,fuel_type,engine,mpg_city,mpg_highway,seats,doors,stock_number,description,daily_rate,weekly_rate,monthly_rate,features
+1HGBH41JXMN109186,Honda,Accord,2022,EX-L,Silver,Black,used,15000,ABC123,Sedan,Automatic,FWD,Gasoline,2.0L I4,30,38,5,4,STK001,Well-maintained Honda Accord,45.00,280.00,1000.00,Bluetooth|Backup Camera|Heated Seats
+1FTFW1ET8EFA12345,Ford,F-150,2023,XLT,Blue,Gray,new,500,XYZ789,Truck,Automatic,4WD,Gasoline,3.5L V6,20,26,5,4,STK002,Brand new Ford F-150 truck,75.00,450.00,1600.00,4WD|Tow Package|Apple CarPlay
+5YJ3E1EA9KF123456,Tesla,Model 3,2021,Long Range,White,White,certified_pre_owned,22000,TES456,Sedan,Automatic,AWD,Electric,Dual Motor,130,120,5,4,STK003,Tesla Model 3 with autopilot,65.00,400.00,1400.00,Autopilot|Premium Audio|Glass Roof

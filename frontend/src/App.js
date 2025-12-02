@@ -11,6 +11,7 @@ import Locations from './pages/Locations';
 import Vehicles from './pages/Vehicles';
 import VehicleProfile from './pages/VehicleProfile';
 import VehicleForm from './pages/VehicleForm';
+import VehicleBulkUpload from './pages/VehicleBulkUpload';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -62,6 +63,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <VehicleForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/vehicles/bulk-upload"
+              element={
+                <ProtectedRoute>
+                  <VehicleBulkUpload />
                 </ProtectedRoute>
               }
             />

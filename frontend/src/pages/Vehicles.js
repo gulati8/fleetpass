@@ -64,12 +64,21 @@ function Vehicles() {
             <div className="col-lg-12">
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="fw-bolder">Vehicles</h1>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => navigate('/vehicles/new')}
-                >
-                  + New Vehicle
-                </button>
+                <div className="btn-group">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => navigate('/vehicles/new')}
+                  >
+                    + New Vehicle
+                  </button>
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={() => navigate('/vehicles/bulk-upload')}
+                  >
+                    <i className="bi bi-upload me-2"></i>
+                    Bulk Upload
+                  </button>
+                </div>
               </div>
 
               {error && (
