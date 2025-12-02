@@ -13,6 +13,12 @@
 *.out
 go.work
 vendor/
+bin/
+main
+
+# Test coverage
+coverage.out
+coverage.html
 
 # React / Node
 node_modules/
@@ -21,6 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 /frontend/build
+/frontend/coverage
 /frontend/.env.local
 /frontend/.env.development.local
 /frontend/.env.test.local
