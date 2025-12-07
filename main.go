@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"fleetpass/internal/database"
 	"fleetpass/internal/handlers"
 
+	"github.com/didip/tollbooth/v7"
+	"github.com/didip/tollbooth/v7/limiter"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -54,12 +57,31 @@ func main() {
 			w.Write([]byte("FleetPass API v1.0"))
 		})
 
-		// Authentication endpoints
-		r.Post("/api/register", handlers.Register)
-		r.Post("/api/login", handlers.Login)
-		r.Post("/api/verify-email", handlers.VerifyEmail)
-		r.Post("/api/forgot-password", handlers.ForgotPassword)
-		r.Post("/api/reset-password", handlers.ResetPassword)
+		// Rate limiter for auth endpoints: 5 requests per minute per IP
+		authLimiter := tollbooth.NewLimiter(5, &limiter.ExpirableOptions{
+			DefaultExpirationTTL: time.Minute,
+		})
+
+		// Wrapper to return JSON error responses for rate limiting
+		rateLimitWithJSON := func(lmt *limiter.Limiter, next http.HandlerFunc) http.HandlerFunc {
+			return func(w http.ResponseWriter, r *http.Request) {
+				httpError := tollbooth.LimitByRequest(lmt, w, r)
+				if httpError != nil {
+					w.Header().Set("Content-Type", "application/json")
+					w.WriteHeader(httpError.StatusCode)
+					w.Write([]byte(`{"error":"Rate limit exceeded. Please try again later."}`))
+					return
+				}
+				next(w, r)
+			}
+		}
+
+		// Authentication endpoints (rate-limited to prevent brute force attacks)
+		r.Post("/api/register", rateLimitWithJSON(authLimiter, handlers.Register))
+		r.Post("/api/login", rateLimitWithJSON(authLimiter, handlers.Login))
+		r.Post("/api/verify-email", rateLimitWithJSON(authLimiter, handlers.VerifyEmail))
+		r.Post("/api/forgot-password", rateLimitWithJSON(authLimiter, handlers.ForgotPassword))
+		r.Post("/api/reset-password", rateLimitWithJSON(authLimiter, handlers.ResetPassword))
 	})
 
 	// Protected routes
