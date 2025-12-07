@@ -1,0 +1,97 @@
+.
+├── CLAUDE.md
+├── DEPLOYMENT.md
+├── Dockerfile
+├── Makefile
+├── QUICKSTART_TESTING.md
+├── ROADMAP.md
+├── TESTING.md
+├── TESTING_AUTH.md
+├── agents
+│   └── architect.md
+├── docker-compose.yml
+├── docs
+│   └── USER_MANAGEMENT_DESIGN.md
+├── frontend
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   └── src
+│       ├── App.css
+│       ├── App.js
+│       ├── App.test.js
+│       ├── api.js
+│       ├── bootstrap-theme.css
+│       ├── components
+│       │   ├── Navbar.js
+│       │   └── ProtectedRoute.js
+│       ├── context
+│       │   ├── AuthContext.js
+│       │   └── AuthContext.test.js
+│       ├── index.css
+│       ├── index.js
+│       ├── logo.svg
+│       ├── pages
+│       │   ├── Dashboard.js
+│       │   ├── Home.js
+│       │   ├── Locations.js
+│       │   ├── Login.js
+│       │   ├── Organizations.js
+│       │   ├── VehicleBulkUpload.js
+│       │   ├── VehicleBulkUpload.test.js
+│       │   ├── VehicleForm.js
+│       │   ├── VehicleProfile.js
+│       │   └── Vehicles.js
+│       ├── reportWebVitals.js
+│       ├── services
+│       │   ├── api.js
+│       │   └── api.test.js
+│       └── setupTests.js
+├── go.mod
+├── go.sum
+├── internal
+│   ├── auth
+│   │   ├── password.go
+│   │   └── tokens.go
+│   ├── database
+│   │   ├── db.go
+│   │   ├── migrations
+│   │   │   ├── 001_initial_schema.sql
+│   │   │   └── 002_seed_data.sql
+│   │   └── seed.go
+│   ├── email
+│   │   └── email.go
+│   ├── handlers
+│   │   ├── auth.go
+│   │   ├── location.go
+│   │   ├── organization.go
+│   │   ├── vehicle.go
+│   │   ├── vehicle_bulk.go
+│   │   ├── vehicle_bulk_test.go
+│   │   └── vehicle_test.go
+│   ├── models
+│   │   ├── location.go
+│   │   ├── organization.go
+│   │   ├── permission.go
+│   │   ├── role.go
+│   │   ├── user.go
+│   │   └── vehicle.go
+│   └── testutil
+│       └── testutil.go
+├── main.go
+├── meta
+│   └── tree.txt
+├── nginx
+│   ├── Dockerfile
+│   └── nginx.conf
+└── vehicle_upload_template.csv
+
+20 directories, 75 files
