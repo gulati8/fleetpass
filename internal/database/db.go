@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fleetpass/internal/models"
 	"fmt"
 	"log"
 	"os"
@@ -74,6 +75,32 @@ func Connect(config *Config) (*gorm.DB, error) {
 	return db, nil
 }
 
+// AutoMigrate runs database migrations for all models
+func AutoMigrate(db *gorm.DB) error {
+	log.Println("Running database migrations...")
+
+	// Enable UUID extension
+	if err := db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"").Error; err != nil {
+		return fmt.Errorf("error enabling UUID extension: %w", err)
+	}
+
+	// Auto-migrate all models
+	err := db.AutoMigrate(
+		&models.Organization{},
+		&models.Location{},
+		&models.User{},
+		&models.Role{},
+		&models.Permission{},
+		&models.Vehicle{},
+	)
+	if err != nil {
+		return fmt.Errorf("error running auto-migrations: %w", err)
+	}
+
+	log.Println("Database migrations completed successfully")
+	return nil
+}
+
 // Init initializes the global database connection
 func Init() error {
 	config := LoadConfigFromEnv()
@@ -83,6 +110,18 @@ func Init() error {
 	}
 
 	DB = db
+
+	// Run migrations
+	if err := AutoMigrate(db); err != nil {
+		return err
+	}
+
+	// Seed database with initial data
+	if err := SeedDatabase(db); err != nil {
+		log.Printf("Warning: Error seeding database: %v", err)
+		// Don't fail on seed errors (might already be seeded)
+	}
+
 	return nil
 }
 

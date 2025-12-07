@@ -31,6 +31,9 @@ func main() {
 
 	log.Println("Database initialized successfully")
 
+	// Initialize token auth in handlers
+	handlers.InitTokenAuth(tokenAuth)
+
 	r := chi.NewRouter()
 
 	// Middleware
@@ -45,12 +48,18 @@ func main() {
 		MaxAge:           300,
 	}))
 
-	// Public routes
+	// Public routes (no authentication required)
 	r.Group(func(r chi.Router) {
 		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("FleetPass API v1.0"))
 		})
-		r.Post("/api/login", handlers.Login(tokenAuth))
+
+		// Authentication endpoints
+		r.Post("/api/register", handlers.Register)
+		r.Post("/api/login", handlers.Login)
+		r.Post("/api/verify-email", handlers.VerifyEmail)
+		r.Post("/api/forgot-password", handlers.ForgotPassword)
+		r.Post("/api/reset-password", handlers.ResetPassword)
 	})
 
 	// Protected routes
